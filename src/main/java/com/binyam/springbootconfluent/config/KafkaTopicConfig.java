@@ -10,8 +10,11 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
     @Value("${spring.kafka.topic.name.firstTopic}")
     private String firstTopic;
-    @Value("${spring.kafka.topic.name.firstTopic}")
-    private String secondTopic;
+    @Value("${spring.kafka.topic.name.streamTopic}")
+    private String streamTopic;
+
+    @Value("${spring.kafka.topic.name.countTopic}")
+    private String countTopic;
 
     @Bean
     public NewTopic kafkaTopic1(){
@@ -21,8 +24,15 @@ public class KafkaTopicConfig {
                 .build();
     }
     @Bean
-    public NewTopic kafkaJsonTopic1(){
-        return TopicBuilder.name(secondTopic)
+    public NewTopic streamTopic(){
+        return TopicBuilder.name(streamTopic)
+                .build();
+    }
+    @Bean
+    public NewTopic counts(){
+        return TopicBuilder.name(countTopic)
+                .partitions(6)
+                .replicas(3)
                 .build();
     }
 }
